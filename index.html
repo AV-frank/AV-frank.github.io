@@ -8,11 +8,39 @@
 </head>
 <body>
     <h1>API LISTA</h1>
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-    </ul>
+    <?php
+
+    //setup the request, you can also use CURLOPT_URL
+    $ch = curl_init('https://ssl3.brpsystems.se/crossfitbrponline/api/ver2/activities.xml?businessunitids=1&apikey=9969717145f14b80b8d0eb5b5a773fc1');
+
+    // Returns the data/output as a string instead of raw data
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // Good practice to let people know who's accessing their servers. See https://en.wikipedia.org/wiki/User_agent
+    curl_setopt($ch, CURLOPT_USERAGENT, 'testar (frank@ad-vice.se)');
+
+    //Set your auth headers
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        'Content-Type: application/http',
+        'Token: frank@ad-vice.se',
+        'Key: 9969717145f14b80b8d0eb5b5a773fc1'
+        ));
+
+    // get stringified data/output. See CURLOPT_RETURNTRANSFER
+    $data = curl_exec($ch);
+
+    // get info about the request
+    $info = curl_getinfo($ch);
+
+    print_r($info);
+
+    echo "<br>", "<br>";
+   
+    print_r($data);
+    
+    // close curl resource to free up system resources 
+    curl_close($ch)
+    
+?>
 </body>
 </html>
